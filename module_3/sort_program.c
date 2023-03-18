@@ -11,7 +11,8 @@ int isNum(char c)
     return c >= '0' && c <= '9';
 }
 
-void *sort(char *string)
+// sort string in ascending order
+void sort(char *string)
 {
     int len = strlen(string);
     for (int i = 0; i < len; i++)
@@ -20,6 +21,7 @@ void *sort(char *string)
         {
             if (string[i] > string[j])
             {
+                // swapping
                 char temp = *(string + i);
                 *(string + i) = *(string + j);
                 *(string + j) = temp;
@@ -28,8 +30,10 @@ void *sort(char *string)
     }
 }
 
+// split by type of char and sort individually
 void special_sort(char *string, char *sorted)
 {
+    // saves the part of the string
     char part[100];
     int i = 0, j = 0;
     while (*string != '\0')
@@ -38,6 +42,7 @@ void special_sort(char *string, char *sorted)
             (isAlpha(*(string - 1)) && !isAlpha(*string)) ||
             (isNum(*(string - 1)) && !isNum(*string)))
         {
+            // new part start from current iteration
             part[i] = '\0';
             i = 0;
             sort(part);
@@ -49,6 +54,7 @@ void special_sort(char *string, char *sorted)
         string++;
     }
 
+    // for the last part
     part[i] = '\0';
     sort(part);
     strcat(sorted, part);
